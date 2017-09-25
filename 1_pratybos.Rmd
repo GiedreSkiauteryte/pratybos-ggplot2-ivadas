@@ -1,0 +1,200 @@
+---
+title: "Grafikų braižymo įvadas: „ggplot2“"
+output: html_notebook
+---
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+data("iris")
+data("BOD")
+data("npk")
+data("Orange")
+data("swiss")
+```
+
+```{r}
+dim(iris)
+head(iris)
+tail(iris)
+str(iris)
+summary(iris)
+names(iris)
+colnames(iris)
+
+# Kiek objektų lentelėse? 150
+# Kiek kintamųjų? Kokie jų pavadinimai? 5: Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Species
+# Kokie kintamųjų tipai? Ar jie parinkti tinkami? Skaitiniai, faktorius
+# Kokios kintamųjų reikšmės (bent preliminariai)?
+```
+
+```{r}
+dim(BOD)
+head(BOD)
+tail(BOD)
+str(BOD)
+summary(BOD)
+names(BOD)
+colnames(BOD)
+
+# Kiek objektų lentelėse? 6
+# Kiek kintamųjų? Kokie jų pavadinimai? 2, time, demand
+# Kokie kintamųjų tipai? Ar jie parinkti tinkami? numeric
+# Kokios kintamųjų reikšmės (bent preliminariai)?
+```
+
+```{r}
+dim(npk)
+head(npk)
+tail(npk)
+str(npk)
+summary(npk)
+names(npk)
+colnames(npk)
+
+# Kiek objektų lentelėse? 24
+# Kiek kintamųjų? Kokie jų pavadinimai? 5, block, N, P, K, yield
+# Kokie kintamųjų tipai? Ar jie parinkti tinkami? faktoriai, skaičius
+# Kokios kintamųjų reikšmės (bent preliminariai)?
+```
+
+```{r}
+dim(Orange)
+head(Orange)
+tail(Orange)
+str(Orange)
+summary(Orange)
+names(Orange)
+colnames(Orange)
+
+# Kiek objektų lentelėse? 35
+# Kiek kintamųjų? Kokie jų pavadinimai? 3, Tree, age, circumferance
+# Kokie kintamųjų tipai? Ar jie parinkti tinkami? ordered.factor, skaitiniai, skaitiniai
+# Kokios kintamųjų reikšmės (bent preliminariai)?
+```
+
+```{r}
+dim(swiss)
+head(swiss)
+tail(swiss)
+str(swiss)
+summary(swiss)
+names(swiss)
+colnames(swiss)
+
+# Kiek objektų lentelėse? 47
+# Kiek kintamųjų? Kokie jų pavadinimai? 6, Fertility, Agriculture, Examination, Education, Catholic, Infent.Mortality
+# Kokie kintamųjų tipai? Ar jie parinkti tinkami? skaitiniai, integer
+# Kokios kintamųjų reikšmės (bent preliminariai)?
+```
+
+```{r}
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width))
+```
+
+```{r}
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+    geom_point()
+```
+
+```{r}
+ggplot(BOD, aes(x = Time, y = demand)) +
+    geom_line()
+```
+
+```{r}
+ggplot(BOD, aes(x = Time, y = demand)) +
+    geom_line() +
+    geom_point(color = "red")
+```
+
+```{r}
+ggplot(iris, aes(x = Species)) +
+    geom_bar() 
+```
+
+# Užduotis 4.2 Naudodami paketą ggplot2 atlikite:
+## Užduotis 4.2
+# 1 dalis
+# 
+```{r}
+data(npk)
+```
+```{r}
+# Histograma pagal kintamąjį yield
+ggplot(npk, aes(x = yield)) +
+geom_histogram(bins = 15)
+```
+```{r}
+# Branduolių tankio diagrama
+ggplot(npk, aes(x = yield)) +
+geom_density()
+```
+```{r}
+# Stačiakampė diagrama
+ggplot(npk, aes(x = block, y = yield)) +
+    geom_boxplot()
+```
+# 2 dalis
+```{r}
+# Histograma pagal kintamąjį yield
+ggplot(npk, aes(x = yield, color = block)) +
+geom_histogram(bins = 15)
+```
+```{r}
+# Branduolių tankio diagrama
+ggplot(npk, aes(x = yield, color = block)) +
+geom_density()
+```
+```{r}
+# Stačiakampė diagrama
+ggplot(npk, aes(x = block, y = yield, color = block)) +
+    geom_boxplot()
+```
+# 3 dalis
+```{r}
+data(swiss)
+```
+```{r}
+# Sklaidos diagrama
+ggplot(swiss, aes(x = Fertility, y = Education)) +
+geom_point()
+```
+```{r}
+# Sklaidos diagrama
+ggplot(swiss, aes(x = Fertility, y = Education, color = Agriculture)) +
+geom_point()
+```
+## 4.3 užduotis
+```{r}
+data(Orange)
+```
+```{r}
+# Sklaidos diagrama
+ggplot(Orange, aes(x = age, y = circumference)) +
+geom_point()
+```
+```{r}
+# Sklaidos diagrama, spalvomis atvaizduojama Tree
+gg3 <- ggplot(Orange, aes(x = age, y = circumference, color = Tree)) +
+geom_point()
+```
+```{r}
+# Lietuviškas grafiko pavadinimas
+grafikas <- gg3 + ggtitle("Apelsinų skersmens priklausomybė nuo amžiaus") +
+   labs(x = "amžius", y = "skersmuo", fill = "Medis") + theme_bw()
+```
+## 4.4 užduotis
+```{r}
+library(plotly)
+```
+```{r}
+ggplotly(grafikas)
+grafikas
+```
+
+
+```
+

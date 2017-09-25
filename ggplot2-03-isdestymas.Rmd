@@ -53,7 +53,7 @@ Estetinių savybių parinkimas rankiniu būdu
 
 ```{r}
 ggplot(data = mpg) + 
-     geom_point(mapping = aes(x = displ, y = hwy), color = "blue") 
+     geom_point(mapping = aes(x = displ, y = hwy), color = "darkblue") 
 ```
 
 Kaip nurodyti spalvas?
@@ -71,24 +71,45 @@ Užduotys: estetinis išdėstymas
 ```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+
+ggplot(data = mpg) +
+ geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
 ```
 
 2. Kurie lentelės `mpg` kintamieji yra kategoriniai? Kurie – tolydieji? (Užuomina: `?mpg`). Kaip tai pamatyti atspausdinus `mpg`?
 
 ```{r}
-
+?mpg
+str(mpg)
+# Manufacturer - kategorinis
+# Model  - kategorinis
+# Displ - tolydusis
+# Year - diskretus
+# Cyl diskterus
 ```
 
 3. Pasirinkite tolydųjį kintamąjį ir atidėkite jo reikšmes šiose skalėse: `color`, `size`, `shape`. 
 
 ```{r}
+ ggplot(data = mpg) +
+   geom_point(mapping = aes(x = displ, y = hwy, shape = fl)) 
 
+ ggplot(data = mpg) +
+   geom_point(mapping = aes(x = displ, y = hwy, color = fl)) 
+ 
+  ggplot(data = mpg) +
+   geom_point(mapping = aes(x = displ, y = hwy, size = year)) 
 ```
 
 4. Kuo šių estetikos elementų (`color`, `size`, `shape`) išdėstymas skiriasi, jei atidedame *kategorinį* vs. *tolydųjį* kintamąjį? 
 
 
 ```{r}
+  ggplot(data = mpg) +
+   geom_point(mapping = aes(x = cty, y = hwy, color = cty))
+
+  ggplot(data = mpg) +
+   geom_point(mapping = aes(x = cty, y = hwy, color = hwy))
 
 ```
 ```{r}
@@ -99,13 +120,19 @@ ggplot(data = mpg) +
 5. Ką daro estetikos elementas `stroke`? Su kuriomis formomis jis veikia? (Užuomina: naudokite `geom_point`).
 
 ```{r}
+ ggplot(data = mpg) +
+   geom_point(mapping = aes(x = displ, y = cty), stroke = 1) 
 
+ ggplot(data = mpg) +
+   geom_point(mapping = aes(x = displ, y = cty), stroke = 4) 
 ```
 
 
 6. Kas nutinka, jei naudojate kelias skales (pvz., `color`, `size`) su keliais skirtingais kintamaisiais?
 
 ```{r}
+  ggplot(data = mpg) +
+   geom_point(mapping = aes(x = cty, y = hwy, color = cty, shape = fl))
 
 ```
 
@@ -118,6 +145,8 @@ ggplot(data = mpg) +
 8. Kas nutinka, jei su tam tikra skale susiejate ne konkretaus kintamojo pavadinimą (pvz., `aes(colour = displ)`), o kokį nors veiksmą su tuo kintamuoju, tarkime `aes(colour = displ < 5)`?
 
 ```{r}
+  ggplot(data = mpg) +
+   geom_point(mapping = aes(color = as.factor(displ))
 
 ```
 
